@@ -1,0 +1,43 @@
+algamoney:
+  seguranca:
+    enable-https: false
+    origemPermitida: ""
+
+spring:
+  profiles:
+    active: oauth-security
+
+  cors:
+    origin: ""
+
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=ALGAMONEY;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: root
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:8080/oauth/check_token
+          client-id: angular
+          client-secret: angular
