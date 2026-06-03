@@ -1,9 +1,9 @@
 package com.algaworks.algamoneyapi.domain.repository.query;
 
 import com.algaworks.algamoneyapi.domain.model.Lancamento;
+import com.algaworks.algamoneyapi.domain.model.Lancamento_;
 import com.algaworks.algamoneyapi.domain.repository.filter.LancamentoFilter;
 import com.algaworks.algamoneyapi.domain.repository.projection.ResumoLancamento;
-import com.example.algamoney.api.model.Lancamento_;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -46,17 +46,15 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
         CriteriaQuery<ResumoLancamento> criteriaQuery = builder.createQuery(ResumoLancamento.class);
         Root<Lancamento> root = criteriaQuery.from(Lancamento.class);
 
-        Lancamento lancamento = new Lancamento();
-
         criteriaQuery.select(builder.construct(ResumoLancamento.class
         , root.get(Lancamento_.codigo)
         , root.get(Lancamento_.descricao)
         , root.get(Lancamento_.dataVencimento)
         , root.get(Lancamento_.dataPagamento)
         , root.get(Lancamento_.valor)
-        , root.get(Lancamento_.tipo)
-        , root.get(Lancamento_.categoria).get(lancamento.getCategoria().getNome())
-        , root.get(Lancamento_.pessoa).get(lancamento.getPessoa().getNome())));
+        , root.get(Lancamento_.tipoLancamento)
+        , root.get(Lancamento_.categoria).get("nome")
+        , root.get(Lancamento_.pessoa).get("nome")));
 
         Predicate[] predicates = criaRestricoes(lancamentoFilter, builder, root);
         criteriaQuery.where(predicates);

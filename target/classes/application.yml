@@ -5,7 +5,7 @@ algamoney:
 
 spring:
   profiles:
-    active: oauth-security
+    active: basic-security
 
   cors:
     origin: ""
