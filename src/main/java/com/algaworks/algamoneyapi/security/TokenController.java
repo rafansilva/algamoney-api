@@ -1,4 +1,4 @@
-package com.algaworks.algamoneyapi.api.controller;
+package com.algaworks.algamoneyapi.security;
 
 import com.algaworks.algamoneyapi.config.property.AlgamoneyApiProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class TokenController {
 
     @DeleteMapping("revoke")
     public void revoke(HttpServletRequest req, HttpServletResponse resp) {
-        Cookie cookie = new Cookie("refreshToken", null);
+        Cookie cookie = new Cookie("refresh_token", null);
         cookie.setHttpOnly(true);
         cookie.setSecure(algamoneyApiProperty.getSeguranca().isEnableHttps());
         cookie.setPath(req.getContextPath() + "/oauth/token");

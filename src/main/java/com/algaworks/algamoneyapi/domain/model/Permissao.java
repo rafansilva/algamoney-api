@@ -11,8 +11,6 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "permissao")
 public class Permissao {

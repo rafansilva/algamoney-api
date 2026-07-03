@@ -1,4 +1,4 @@
-package com.example.algamoney.api.exceptionHandler;
+package com.algaworks.algamoneyapi.api.exceptionhandler;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

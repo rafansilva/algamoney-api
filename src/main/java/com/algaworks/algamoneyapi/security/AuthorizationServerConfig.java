@@ -1,6 +1,6 @@
-package com.algaworks.algamoneyapi.config;
+package com.algaworks.algamoneyapi.security;
 
-import com.algaworks.algamoneyapi.config.token.CustomTokenEnhancer;
+import com.algaworks.algamoneyapi.security.token.CustomTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,13 +39,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                     .scopes("read", "write")
                     .authorizedGrantTypes("password", "refresh_token")
                     .accessTokenValiditySeconds(1800)
+                    .refreshTokenValiditySeconds(3600)
                 .and()
                     .withClient("mobile")
                     .secret("$2a$10$xyWWm5qQx4Bo8xroD/ZzresuIcmjXxnb1UrOwq02s/keYwpsm/Fiy") // m0b1l30
                     .scopes("read")
                     .authorizedGrantTypes("password", "refresh_token")
                     .accessTokenValiditySeconds(1800) // 1800 = 30 minutos
-                    .refreshTokenValiditySeconds(3600 * 24); // 3600 * 24 = 1 dia
+                    .refreshTokenValiditySeconds(3600); // 3600 * 24 = 1 dia
     }
 
     @Override

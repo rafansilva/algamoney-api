@@ -1,20 +1,22 @@
 package com.algaworks.algamoneyapi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "pessoa")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pessoa {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
@@ -33,4 +35,9 @@ public class Pessoa {
     public Boolean isInativo() {
         return !this.ativo;
     }
+
+    @JsonIgnoreProperties("pessoa")
+    @Valid
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contato> contatos;
 }

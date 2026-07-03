@@ -1,5 +1,6 @@
-package com.algaworks.algamoneyapi.service;
+package com.algaworks.algamoneyapi.domain.service;
 
+import com.algaworks.algamoneyapi.domain.model.Contato;
 import com.algaworks.algamoneyapi.domain.model.Pessoa;
 import com.algaworks.algamoneyapi.domain.repository.PessoaRepository;
 import org.springframework.beans.BeanUtils;
@@ -13,10 +14,20 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    public Pessoa salvar(Pessoa pessoa) {
+        pessoa.getContatos().forEach(c -> c.setPessoa(pessoa));
+
+        return pessoaRepository.save(pessoa);
+    }
+
     public Pessoa atualizarPessoa(Long codigo, Pessoa pessoa) {
         Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
 
-        BeanUtils.copyProperties(pessoa, pessoaSalva, "id");
+        pessoaSalva.getContatos().clear();
+        pessoaSalva.getContatos().addAll(pessoa.getContatos());
+        pessoaSalva.getContatos().forEach(c -> c.setPessoa(pessoaSalva));
+
+        BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo", "contatos" );
 
         return this.pessoaRepository.save(pessoaSalva);
     }

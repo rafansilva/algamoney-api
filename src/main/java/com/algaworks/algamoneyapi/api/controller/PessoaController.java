@@ -3,14 +3,14 @@ package com.algaworks.algamoneyapi.api.controller;
 import com.algaworks.algamoneyapi.api.event.RecursoCriadoEvent;
 import com.algaworks.algamoneyapi.domain.model.Pessoa;
 import com.algaworks.algamoneyapi.domain.repository.PessoaRepository;
-import com.algaworks.algamoneyapi.service.PessoaService;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.algaworks.algamoneyapi.domain.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,21 +32,22 @@ public class PessoaController {
 
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and hasAuthority('SCOPE_read')")
     public Page<Pessoa> pesquisarPessoa(@RequestParam(required = false, defaultValue = "") String nome, Pageable pageable) {
         return pessoaRepository.findByNomeContaining(nome, pageable);
     }
 
     @GetMapping("/{codigo}")
-//    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and hasAuthority('SCOPE_read')")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and hasAuthority('SCOPE_read')")
     public ResponseEntity<Pessoa> buscarPorcodigo(@PathVariable Long codigo) {
         Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
         return pessoa.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-//    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and hasAuthority('SCOPE_write')")
+    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and hasAuthority('SCOPE_write')")
     public ResponseEntity<?> criarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
-        Pessoa pessoaSalva = pessoaRepository.save(pessoa);
+        Pessoa pessoaSalva = pessoaService.salvar(pessoa);
 
         publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
 
@@ -54,19 +55,19 @@ public class PessoaController {
     }
 
     @PutMapping("/{codigo}")
-//    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and hasAuthority('SCOPE_write')")
+    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and hasAuthority('SCOPE_write')")
     public Pessoa atualizarPessoa(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
         return this.pessoaService.atualizarPessoa(codigo, pessoa);
     }
 
     @PutMapping("/{codigo}/ativo")
-//    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and hasAuthority('SCOPE_write')")
+    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and hasAuthority('SCOPE_write')")
     public Pessoa atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
         return this.pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
     }
 
     @DeleteMapping("/{codigo}")
-//    @PreAuthorize("hasAuthority('ROLE_REMOVER_PESSOA') and hasAuthority('SCOPE_write')")
+    @PreAuthorize("hasAuthority('ROLE_REMOVER_PESSOA') and hasAuthority('SCOPE_write')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarPessoa(@PathVariable Long codigo) {
         pessoaRepository.deleteById(codigo);

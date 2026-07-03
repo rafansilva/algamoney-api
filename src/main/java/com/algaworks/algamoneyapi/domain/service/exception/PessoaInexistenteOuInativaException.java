@@ -1,4 +1,4 @@
-package com.algaworks.algamoneyapi.service.exception;
+package com.algaworks.algamoneyapi.domain.service.exception;
 
 import java.io.Serial;
 

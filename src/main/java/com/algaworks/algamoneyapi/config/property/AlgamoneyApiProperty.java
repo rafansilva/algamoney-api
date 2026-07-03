@@ -12,11 +12,25 @@ public class AlgamoneyApiProperty {
 
     private final Seguranca seguranca = new Seguranca();
 
+    private final Mail mail = new Mail();
+
     @Data
     public static class Seguranca {
 
         private boolean enableHttps;
 
         private String origemPermitida = "http://localhost:8000";
+    }
+
+    @Data
+    public static class Mail {
+
+        private String host;
+
+        private Integer port;
+
+        private String username;
+
+        private String password;
     }
 }

@@ -1,6 +1,7 @@
-package com.algaworks.algamoneyapi.config.token;
+package com.algaworks.algamoneyapi.security.token;
 
 import org.apache.catalina.util.ParameterMap;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Profile("oauth-security")
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RefreshTokenCookiePreProcessorFilter implements Filter {
@@ -26,7 +28,7 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter {
             for (Cookie cookie : req.getCookies()) {
                 String refreshToken =
                         Stream.of(req.getCookies())
-                                .filter(cookie1 -> "refreshToken".equals(cookie.getName()))
+                                .filter(cookie1 -> "refresh_token".equals(cookie.getName()))
                                 .findFirst()
                                 .map(cookie1 -> cookie.getName())
                                 .orElse(null);
