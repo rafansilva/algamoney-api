@@ -68,13 +68,13 @@ public class LancamentoController {
         return lancamento.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("estatistica/por-categoria")
+    @GetMapping("estatisticas/por-categoria")
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('SCOPE_read')")
     public List<LancamentoEstatisticaCategoriaDTO> porCategoria() {
         return lancamentoRepository.porCategoria(LocalDate.now());
     }
 
-    @GetMapping("estatistica/por-dia")
+    @GetMapping("estatisticas/por-dia")
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('SCOPE_read')")
     public List<LancamentoEstatisticaDiaDTO> porDia() {
         return lancamentoRepository.porDia(LocalDate.now());
