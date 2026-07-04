@@ -80,7 +80,7 @@ public class LancamentoController {
         return lancamentoRepository.porDia(LocalDate.now());
     }
 
-    @GetMapping("relatorio/por-pessoa")
+    @GetMapping("relatorios/por-pessoa")
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('SCOPE_read')")
     public ResponseEntity<byte[]> relatorioPorPessoa(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate inicio,
