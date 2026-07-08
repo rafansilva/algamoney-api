@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "cotato")
+@Table(name = "contato")
 public class Contato {
 
     @EqualsAndHashCode.Include
