@@ -5,6 +5,8 @@ import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Getter
 @Component
 @ConfigurationProperties("algamoney")
@@ -17,9 +19,7 @@ public class AlgamoneyApiProperty {
     @Data
     public static class Seguranca {
 
-        private boolean enableHttps;
-
-        private String origemPermitida = "http://localhost:8000";
+        private List<String> redirectsPermitidos;
     }
 
     @Data

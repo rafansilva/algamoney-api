@@ -1,7 +1,7 @@
 algamoney:
   seguranca:
     enable-https: false
-    origemPermitida: "http://localhost:4200"
+    redirects-permitidos: "http://localhost:8000/authorized", "https://oidcdebugger.com"
 
   mail:
     host: smtp.office365.com

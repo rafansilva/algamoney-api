@@ -2,7 +2,7 @@ package com.algaworks.algamoneyapi.security.token;
 
 import com.algaworks.algamoneyapi.security.UsuarioSistema;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
+import org.springframework.security.oauth2.commonprivate .DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;

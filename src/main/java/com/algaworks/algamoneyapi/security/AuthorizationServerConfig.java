@@ -1,80 +1,109 @@
 package com.algaworks.algamoneyapi.security;
 
-import com.algaworks.algamoneyapi.security.token.CustomTokenEnhancer;
+import com.algaworks.algamoneyapi.config.property.AlgamoneyApiProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
+import org.springframework.security.web.SecurityFilterChain;
 
+import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
-@SuppressWarnings("deprecation")
 @Profile("oauth-security")
 @Configuration
-@EnableAuthorizationServer
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private AlgamoneyApiProperty algamoneyApiProperty;
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                    .withClient("angular")
-                    .secret("$2a$10$xyWWm5qQx4Bo8xroD/ZzresuIcmjXxnb1UrOwq02s/keYwpsm/Fiy") // @ngul@r0
-                    .scopes("read", "write")
-                    .authorizedGrantTypes("password", "refresh_token")
-                    .accessTokenValiditySeconds(1800)
-                    .refreshTokenValiditySeconds(3600)
-                .and()
-                    .withClient("mobile")
-                    .secret("$2a$10$xyWWm5qQx4Bo8xroD/ZzresuIcmjXxnb1UrOwq02s/keYwpsm/Fiy") // m0b1l30
-                    .scopes("read")
-                    .authorizedGrantTypes("password", "refresh_token")
-                    .accessTokenValiditySeconds(1800) // 1800 = 30 minutos
-                    .refreshTokenValiditySeconds(3600); // 3600 * 24 = 1 dia
-    }
+    @Bean
+    public RegisteredClientRepository registeredClientRepository() {
+        RegisteredClient angularClient = RegisteredClient
+                .withId(UUID.randomUUID().toString())
+                .clientId("angular")
+                .clientSecret(passwordEncoder.encode("@ngul@r0"))
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUris(uris -> uris.addAll(algamoneyApiProperty.getSeguranca().getRedirectsPermitidos()))
+                .scope("read")
+                .scope("write")
+                .tokenSettings(TokenSettings.builder()
+                        .accessTokenTimeToLive(Duration.ofMillis(30))
+                        .refreshTokenTimeToLive(Duration.ofDays(24))
+                        .build())
+                .clientSettings(ClientSettings.builder()
+                        .requireAuthorizationConsent(true)
+                        .build())
+                .build();
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+        RegisteredClient mobileClient = RegisteredClient
+                .withId(UUID.randomUUID().toString())
+                .clientId("mobile")
+                .clientSecret(passwordEncoder.encode("m)b1le"))
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUris(uris -> uris.addAll(algamoneyApiProperty.getSeguranca().getRedirectsPermitidos()))
+                .scope("read")
+                .tokenSettings(TokenSettings.builder()
+                        .accessTokenTimeToLive(Duration.ofMillis(30))
+                        .refreshTokenTimeToLive(Duration.ofDays(24))
+                        .build())
+                .clientSettings(ClientSettings.builder()
+                        .requireAuthorizationConsent(false)
+                        .build())
+                .build();
 
-        endpoints.authenticationManager(authenticationManager)
-                .tokenEnhancer(tokenEnhancerChain)
-                .tokenStore(tokenStore())
-                .userDetailsService(userDetailsService)
-                .reuseRefreshTokens(false);
+
+        return new InMemoryRegisteredClientRepository(Arrays.asList(angularClient, mobileClient));
     }
 
     @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        accessTokenConverter.setSigningKey("3032885ba9cd6621bcc4e7d6b6c35c2b");
-        return accessTokenConverter;
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public SecurityFilterChain authServerFilterChain(HttpSecurity http) throws Exception {
+        OAuth2AuthorizationServerConfigurer.authorizationServer();
+
+        return http.formLogin(Customizer.withDefaults()).build();
     }
 
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
-    }
+    public OAuth2TokenCustomizer<JwtEncodingContext> jwtBuilderCustomizer() {
+        return (context -> {
+            UsernamePasswordAuthenticationToken authenticationToken = context.getPrincipal();
+            UsuarioSistema usuarioSistema = (UsuarioSistema) authenticationToken.getPrincipal();
 
-    @Bean
-    public TokenEnhancer tokenEnhancer() {
-        return new CustomTokenEnhancer();
+            Set<String> authorities = new HashSet<>();
+            for (GrantedAuthority grantedAuthority : usuarioSistema.getAuthorities()) {
+                authorities.add(grantedAuthority.getAuthority());
+            }
+
+            context.getClaims().claim("nome", usuarioSistema.getUsuario().getNome());
+            context.getClaims().claim("authorities", authorities);
+        });
     }
 }
