@@ -1,8 +1,6 @@
 CREATE TABLE categoria (
-    codigo BIGINT IDENTITY,
-    nome VARCHAR(50) NOT NULL,
-
-    CONSTRAINT pk_categoria PRIMARY KEY (codigo)
+    codigo BIGINT IDENTITY(1,1) PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
 )
 
 INSERT INTO categoria (nome) values ('Lazer');

@@ -1,5 +1,5 @@
 CREATE TABLE pessoa (
-    codigo BIGINT IDENTITY,
+    codigo BIGINT IDENTITY(1,1) PRIMARY KEY,
     nome VARCHAR(50) not null,
     logradouro VARCHAR(50),
     numero VARCHAR(50),
@@ -8,9 +8,7 @@ CREATE TABLE pessoa (
     cep VARCHAR(50),
     cidade VARCHAR(50),
     estado VARCHAR(50),
-    ativo BIT not null,
-
-    CONSTRAINT pk_pessoa PRIMARY KEY (codigo)
+    ativo BIT not null
 )
 
 INSERT INTO pessoa (nome, logradouro, numero, complemento, bairro, cep, cidade, estado, ativo) values ('João Silva', 'Rua do Abacaxi', '10', null, 'Brasil', '38.400-121', 'Uberlândia', 'MG', 1);

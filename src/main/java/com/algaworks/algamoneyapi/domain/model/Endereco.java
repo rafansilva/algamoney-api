@@ -1,11 +1,11 @@
 package com.algaworks.algamoneyapi.domain.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 @Getter
@@ -17,6 +17,8 @@ public class Endereco {
     private String complemento;
     private String bairro;
     private String cep;
-    private String cidade;
-    private String estado;
+
+    @ManyToOne
+    @JoinColumn(name = "codigo_cidade")
+    private Cidade cidade;
 }
