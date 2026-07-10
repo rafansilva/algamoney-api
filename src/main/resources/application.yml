@@ -1,7 +1,10 @@
 algamoney:
   seguranca:
-    enable-https: false
-    redirects-permitidos: "http://localhost:8000/authorized", "https://oidcdebugger.com"
+    redirects-permitidos:
+      - http://local-algamoney.com:4200
+      - https://oidcdebugger.com/debug
+    auth-server-url: http://localhost:8080
+  origem-permitida: http://local-algamoney.com:4200
 
   mail:
     host: smtp.office365.com

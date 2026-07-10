@@ -1,4 +1,4 @@
-package com.algaworks.algamoneyapi.security;
+package com.algaworks.algamoneyapi.config.security;
 
 import com.algaworks.algamoneyapi.domain.model.Usuario;
 import lombok.Getter;
