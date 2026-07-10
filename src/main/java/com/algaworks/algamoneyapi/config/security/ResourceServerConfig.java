@@ -1,7 +1,9 @@
 package com.algaworks.algamoneyapi.config.security;
 
+import com.algaworks.algamoneyapi.config.property.AlgamoneyApiProperty;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -18,7 +20,9 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.ServletRequest;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -29,14 +33,34 @@ import java.util.stream.Collectors;
 @EnableWebSecurity
 public class ResourceServerConfig {
 
+    @Autowired
+    private AlgamoneyApiProperty algamoneyApiProperty;
+
     @Bean
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, ServletRequest httpServletRequest) throws Exception {
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .csrf().disable()
                 .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+
+        http.logout(
+                logoutConfig -> {
+                    logoutConfig.logoutSuccessHandler(
+                            (request, response, authentication) -> {
+                                String returnTo = request.getParameter("returnTo");
+
+                                if (!StringUtils.hasText(returnTo)) {
+                                    returnTo = algamoneyApiProperty.getSeguranca().getAuthServerUrl();
+                                }
+
+                                response.setStatus(302);
+                                response.sendRedirect(returnTo);
+                            }
+                    );
+                }
+        );
 
         return http.formLogin(Customizer.withDefaults()).build();
     }

@@ -1,7 +1,7 @@
 algamoney:
   seguranca:
     redirects-permitidos:
-      - http://local-algamoney.com:4200
+      - http://local-algamoney.com:4200/authorized
       - https://oidcdebugger.com/debug
     auth-server-url: http://localhost:8080
   origem-permitida: http://local-algamoney.com:4200
