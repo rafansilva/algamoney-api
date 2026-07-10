@@ -1,0 +1,918 @@
+{
+  "info": {
+    "_postman_id": "f2784a53-5ef1-400f-80da-5b8342d206d6",
+    "name": "Algamoney",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13245679"
+  },
+  "item": [
+    {
+      "name": "Categorias",
+      "item": [
+        {
+          "name": "Categorias - Listar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjkzNzQ1NzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9ST0xFIl0sImp0aSI6IjZUemdKWW82N2ZidjRIZFRFUHgwQnZUcXhMUSIsImNsaWVudF9pZCI6ImFuZ3VsYXIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.vUjdQ0X3eeWgxvIaaLe2GuajspJdQTg2hpHxb-d7cCw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/categorias",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "categorias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Categorias - Buscar por Código",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/categorias/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "categorias",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Categorias - Criar",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nome\": \"Outros\",\n    \"observacao\": \"outra observação\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/categorias",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "categorias"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Estados",
+      "item": [
+        {
+          "name": "Estados - Listar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/estados",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "estados"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cidades",
+      "item": [
+        {
+          "name": "CIdades - Pesquisar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/cidades?estado=11",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cidades"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "11"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pessoa",
+      "item": [
+        {
+          "name": "Pessoa - Listar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/pessoas",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pessoas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pessoa - Buscar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/pessoas/12",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pessoas",
+                "12"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pessoa - Deletar",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/pessoas/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pessoas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pessoa - Criar",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "angular",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "angular",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nome\": \"Rafael Silva\",\n    \"ativo\": true,\n    \"endereco\": {\n        \"logradouro\": \"Rua Pantanal\",\n        \"numero\": \"19\",\n        \"bairro\": \"Gaivotas\",\n        \"cep\": \"04849300\",\n        \"cidade\": \"São Paulo\",\n        \"estado\": \"São Paulo\"\n    }\n\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/pessoas",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pessoas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pessoa - Atualizar",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nome\": null,\n    \"ativo\": true,\n    \"endereco\": {\n        \"logradouro\": \"Rua Pantanal\",\n        \"numero\": \"19\",\n        \"complemento\": \"garagem e portão cinza\",\n        \"bairro\": \"Gaivotas\",\n        \"cep\": \"04849328\",\n        \"cidade\": \"São Paulo\",\n        \"estado\": \"São Paulo\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/pessoas/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pessoas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pessoa - Atualizar propriedade ativo",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ativo\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/pessoas/1/ativo",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pessoas",
+                "1",
+                "ativo"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Lançamentos",
+      "item": [
+        {
+          "name": "Lançamento - Buscar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Pesquisar",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin@algamoney.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos?descricao=Compra",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos"
+              ],
+              "query": [
+                {
+                  "key": "descricao",
+                  "value": "Compra"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Resumo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzE3MDI3MTMsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJITk9RVEh6SHhYSm1MVVpubnNjQUJHa2N2RVUiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.PdSbJYY1AYA4WKBCGgBXBjQosLtLtCCaewbvFMIe5WE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos?resumo",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos"
+              ],
+              "query": [
+                {
+                  "key": "resumo",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos?size=10&page=1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos"
+              ],
+              "query": [
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Criar",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin@algamoney.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"descricao\": \"Aluguel de carro\",\r\n    \"dataVencimento\": \"10/03/2017\",\r\n    \"valor\": 6700.32,\r\n    \"observacao\": null,\r\n    \"tipoLancamento\": \"DESPESA\",\r\n    \"categoria\": {\r\n        \"codigo\": 3\r\n    },\r\n    \"pessoa\": {\r\n        \"codigo\": 1\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/lancamentos",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Anexo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "anexo",
+                  "type": "file",
+                  "uuid": "63276443-e502-404b-b13b-e3cce1dd85ea",
+                  "src": "/C:/Users/Win/Desktop/response.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:8080/lancamentos/anexo",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos",
+                "anexo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Atualizar",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"descricao\": \"Teste 3\",\r\n    \"dataVencimento\": \"10/03/2017\",\r\n    \"valor\": 6700.32,\r\n    \"observacao\": null,\r\n    \"tipoLancamento\": \"DESPESA\",\r\n    \"categoria\": {\r\n        \"codigo\": 3\r\n    },\r\n    \"pessoa\": {\r\n        \"codigo\": 333\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/lancamentos/atualizar/:codigo",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos",
+                "atualizar",
+                ":codigo"
+              ],
+              "variable": [
+                {
+                  "key": "codigo",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Deletar",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos/31",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos",
+                "31"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Estatisticas por categoria",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos/estatisticas/por-categoria",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos",
+                "estatisticas",
+                "por-categoria"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Estatisticas por dia",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos/estatisticas/por-dia",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos",
+                "estatisticas",
+                "por-dia"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lançamento - Relatório por pessoa",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/lancamentos/relatorios/por-pessoa?inicio=2026-01-01&fim=2026-06-30",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "lancamentos",
+                "relatorios",
+                "por-pessoa"
+              ],
+              "query": [
+                {
+                  "key": "inicio",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "fim",
+                  "value": "2026-06-30"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Autenticação",
+      "item": [
+        {
+          "name": "Authorization Server",
+          "item": [
+            {
+              "name": "Solicitar Authorization Code (Browser)",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/oauth2/authorize?response_type=code&client_id=angular&state=abc&redirect_uri=http://local-algamoney.com:4200&code_challenge=FVZLsUiVQKlkeYO9bA1ouvKwTQ6NA1RUlcwxGM-bdgE&code_challenge_method=S256&scope=read+write",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "oauth2",
+                    "authorize"
+                  ],
+                  "query": [
+                    {
+                      "key": "response_type",
+                      "value": "code"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "angular"
+                    },
+                    {
+                      "key": "state",
+                      "value": "abc"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "http://local-algamoney.com:4200"
+                    },
+                    {
+                      "key": "code_challenge",
+                      "value": "FVZLsUiVQKlkeYO9bA1ouvKwTQ6NA1RUlcwxGM-bdgE"
+                    },
+                    {
+                      "key": "code_challenge_method",
+                      "value": "S256"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "read+write"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Solicitar um AccessToken e RefreshToken com Authorization Code",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "let response = pm.response.json();\r",
+                      "\r",
+                      "pm.environment.set(\"token\", response.access_token);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "angular",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "@ngul@r0",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "code",
+                      "value": "9c1lzroedGhNWBivHw0g1Wts8Q2nbVy0adnh2Wr9pbcLsoVIihpPj0Inb1QMgyd3m6YvZbyN6UuX-9KABlXvRt4SPYN8FEHlk3Hf2lI2g15hRq0RpKM1fzT9R3ceI421",
+                      "type": "text",
+                      "uuid": "3bc40bc7-4c21-4a2c-917a-0ac836003f58"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "http://local-algamoney.com:4200",
+                      "type": "text",
+                      "uuid": "ac22d0d5-7d6a-4f7e-80d8-9929ec35a12e"
+                    },
+                    {
+                      "key": "code_verifier",
+                      "value": "mYZ16LmW79Wa_qa7trsiNsz7_SmrDVMpEX0MPJbIqB4",
+                      "type": "text",
+                      "uuid": "b447fa29-4351-40a9-bd77-18ed7ccb835b"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "angular",
+                      "type": "text",
+                      "uuid": "9a33b95c-4dad-4fda-988e-3a19b8d38cad"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "text",
+                      "uuid": "843b268a-bfc4-43b0-996b-bbcb303f6486"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:8080/oauth2/token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "oauth2",
+                    "token"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Solicitar um AccessToken com RefreshToken",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "angular",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "@ngul@r0",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "refresh_token",
+                      "value": "CJ3UK9xTtkFTwBCtv33LlarjPkcItlzvBInNYYstqR-QXiKjagZCXf0wFP8cuDdwViaEyRixP3iXRsfHiSjoS0E2-nr-fqD96l3_91QUrwy3AkLXIaYnu6ukDZXW7vxo",
+                      "type": "text",
+                      "uuid": "3bc40bc7-4c21-4a2c-917a-0ac836003f58"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "angular",
+                      "type": "text",
+                      "uuid": "9a33b95c-4dad-4fda-988e-3a19b8d38cad"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "refresh_token",
+                      "type": "text",
+                      "uuid": "843b268a-bfc4-43b0-996b-bbcb303f6486"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:8080/oauth2/token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "oauth2",
+                    "token"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
